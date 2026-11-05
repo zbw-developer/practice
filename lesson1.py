@@ -1,0 +1,5 @@
+name = input("你叫什么名字")
+print("您好,"+name)
+print("欢迎学Python")
+age = input("你多大了")
+print(f"明年你就{int(age) + 1}岁了")
