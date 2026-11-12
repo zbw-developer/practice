@@ -8,8 +8,12 @@ def load_todos():
     """从文件读取;文件不存在就返回空列表"""
     if not os.path.exists(FILE):
         return[]
-    with open(FILE,"r",encoding="utf-8")as f:
-        return json.load(f)
+    try:
+        with open(FILE,"r",encoding="utf-8")as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        print("todos.json 格式又问，先当作空清单处理")
+        return []
 
 
 def save_todos(data):
@@ -20,7 +24,7 @@ def save_todos(data):
 todos = load_todos()
 
 while True:
-    command = input("命令(add / list / done / del / quit):")
+    command = input("命令(add / list / done / del / clear / quit):")
 
     if command =="add":
         task = input("要添加什么?")
