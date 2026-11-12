@@ -56,6 +56,18 @@ while True:
         else:
             print("请输入数字")
 
+    elif command == "stat":
+            total = len(todos)
+            done = 0
+            for item in todos:
+                if item["done"]:
+                    done = done + 1
+            print("===== 统计 =====")
+            print(f"总共 {total} 条")
+            print(f"已完成 {done} 条")
+            print(f"未完成 {total - done} 条")
+            print("================")
+
     elif command == "del":
         num  = input("要删除第几条")
         if num.isdigit():
@@ -68,6 +80,16 @@ while True:
                 print("没有这条编号")
         else:
             print("请输入数字")
+
+    elif command == "clear":
+        kept = []
+        for item in todos:
+            if not item["done"]:
+                kept.append(item)
+        removed = len(todos) - len(kept)
+        todos = kept
+        save_todos(todos)
+        print(f"已清空 {removed} 条已完成")
 
     elif command =="quit":
         print("再见")
