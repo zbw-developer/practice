@@ -1,5 +1,6 @@
 import json
 import os
+from rich import print
 
 FILE = "todos.json"
 
@@ -33,10 +34,10 @@ while True:
         if len(todos) == 0:
             print("清单是空的,先add一条")
         else: 
-            print("===待办清单===")
+            print("[bold cyan]=== 待办清单 ===[/bold cyan]")
             i = 1
             for item in todos:
-                mark = "✓" if item["done"] else " "
+                mark = "[green]✓[/green]" if item["done"] else " "
                 print(f"{i}. {item['task']} {mark}")
                 i = i + 1
             print("=" * 20)
@@ -63,9 +64,9 @@ while True:
                 save_todos(todos)
                 print(f"已删除{removed['task']}")
             else:
-                print("没有这条编号")
+                print("[red]没有这条编号[/red]")
         else:
-            print("请输入数字")
+            print("[red]请输入数字[/red]")
 
     elif command == "stat":
         total = len(todos)
