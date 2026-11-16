@@ -1,6 +1,7 @@
 import json
 import os
 from rich import print
+from rich.table import Table
 
 FILE = "todos.json"
 
@@ -73,10 +74,15 @@ while True:
         done = 0
         for item in todos:
             if item["done"]:
-                total = total + 1
-        print(f"总共{total}条")
-        print(f"已完成{done}条")
-        print(f"未完成{total-done}条")
+                done = done + 1
+
+        table = Table(title="统计")
+        table.add_column("项目")
+        table.add_column("数量", justify="right")
+        table.add_row("总共", str(total))
+        table.add_row("已完成", str(done))
+        table.add_row("未完成", str(total - done))
+        print(table)
 
     elif command == "clear":
         kept = []
