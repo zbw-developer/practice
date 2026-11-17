@@ -23,11 +23,14 @@ def save_todos(data):
 todos = load_todos()
 
 while True:
-    command = input("命令(add/list/done/del/stat/clear/reset/quit)")
+    command = input("命令(add/list/done/del/stat/clear/reset/search/edit/quit)")
 
     if command == "add":
         task = input("需要添加什么:")
-        todos.append({"task":task,"done":False})
+        pr = input("优先级(高/中/低,直接回车=中):")
+        if pr == "":
+            pr = "中"
+        todos.append({"task":task,"done":False,"priority":pr})
         print(f"已添加:{task}")
         save_todos(todos)
 
@@ -38,8 +41,17 @@ while True:
             print("[bold cyan]=== 待办清单 ===[/bold cyan]")
             i = 1
             for item in todos:
-                mark = "[green]✓[/green]" if item["done"] else " "
-                print(f"{i}. {item['task']} {mark}")
+                mark = "✓" if item["done"] else " "
+                p = item.get("priority","中")
+
+                if p == "高":
+                    color = "red"
+                elif p == "低":
+                    color = "green"
+                else:
+                    color = "yellow"
+
+                print(f"{i}. {item['task']} {mark}[{color}]{p}[/{color}]")
                 i = i + 1
             print("=" * 20)
 
@@ -102,6 +114,30 @@ while True:
             print("已清空全部")
         else:
             print("已取消")
+
+    elif command == "search":
+        keyword = input("搜什么")
+        found = 0
+        for item in todos:
+            if keyword in item["task"]:
+                print(f"- {item['task']}")
+                found = found + 1
+        if found == 0:
+            print("没找到")
+
+    elif command == "edit":
+        num = input("要标记第几条?")
+        if num.isdigit():
+            index = int(num) - 1
+            if 0 <= index < len(todos):
+                new_task = input("新的内容?")
+                todos[index]["task"] = new_task
+                save_todos(todos)
+                print(f"已修改: {new_task}")
+            else:
+                print("改第几条")
+        else:
+            print("请输入数字")
 
     elif command == "quit":
         print("再见")
