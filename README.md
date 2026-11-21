@@ -87,11 +87,21 @@ python todo.py
 
 ```
 practice/
-├── todo.py             # 主程序
+├── todo.py             # 主程序（唯一入口）
 ├── todos.json          # 数据（自动生成，不进 Git）
 ├── requirements.txt    # 依赖
 ├── screenshot.png      # 运行截图
+├── 日志.md             # 学习日志
 ├── .gitignore
+├── learning/           # 学习期间的练习脚本（与主程序无关）
+│   ├── lesson1-8.py    # 语法练习：input / 条件 / 循环 / 函数 / 列表
+│   ├── game.py         # 猜数字（函数版）
+│   ├── dict1.py        # 字典练习
+│   ├── temp.py         # 摄氏华氏互转
+│   ├── save_test.py    # JSON 写入实验
+│   ├── load_test.py    # JSON 读取实验
+│   ├── rich_test.py    # rich 彩色表格实验
+│   └── debug_test.py   # 断点调试练习
 └── .venv/              # 虚拟环境（不进 Git）
 ```
 
